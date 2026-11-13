@@ -1,23 +1,16 @@
 # RAG Projects with Google Gemini
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app)
-[![GitHub license](https://img.shields.io/github/license/miguelmorandini/chat-com-pdf)](LICENSE)
 
 This repository brings together complementary approaches for applying **RAG (Retrieval-Augmented Generation)** architecture with **Google Gemini**:
 
-1. **[Chat with PDF](chat_com_pdf.ipynb):** Lightweight and direct implementation for answering questions about PDF documents using PyPDF2 and TF-IDF (Initial Challenge).
-2. **[Databricks Assistant](databricks_rag_assistant.ipynb):** Advanced multi-document RAG platform using official Databricks technical documentation, powered by **ChromaDB** and **Google Embeddings (`gemini-embedding-001`)**.
-3. **[Databricks Technical Assistant (Web App)](streamlit_app.py):** Full modern conversational interface with streaming, persistent chat history, and Lakehouse design, hosted for free in production on Streamlit Cloud: **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**.
+1. **[Chat with PDF](chat_com_pdf.ipynb):** Lightweight implementation for answering questions about PDF documents using PyPDF2 and TF-IDF.
+2. **[Databricks Assistant](databricks_rag_assistant.ipynb):** Multi-document RAG platform using official Databricks technical documentation, powered by **ChromaDB** and **Google Embeddings (`gemini-embedding-001`)**.
+3. **[Databricks Technical Assistant (Web App)](streamlit_app.py):** Conversational web interface with streaming, persistent chat history, and Lakehouse design, hosted on Streamlit Cloud: **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**.
 
 ---
 
-## 🚀 Live Web Application (Free Online Deployment)
-
-Access the assistant in real time directly in your browser without installing anything:
-
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app)
-
-👉 **Direct Link:** **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**
+## Live Web Application
 
 - **Real-Time Streaming:** Responses typed progressively on screen using `st.write_stream`.
 - **Multi-Turn Conversational Memory:** Retains context from previous questions for smooth technical dialogues.
@@ -181,16 +174,3 @@ python src/ingest_pipeline.py --max-pages 50
 | **Technical Question 2** | *What is a Lakehouse and what problems does it solve?* | Conceptual summary citing pp. 5, 6, and 13 |
 | **Technical Question 3** | *How does Delta Lake handle ACID transactions?* | Explanation of the transaction log citing pp. 8 and 13 |
 | **Anti-Hallucination Test** | *Qual e a escalacao da selecao brasileira em 2002?* | `"Nao encontrei essa informacao no documento."` |
-
----
-
-## Author
-
-**Miguel Miranda Morandini**
-- GitHub: [@miguelmorandini](https://github.com/miguelmorandini)
-- LinkedIn: [Miguel Morandini](https://www.linkedin.com/in/miguel-morandini/)
-
----
-
-## License
-Distributed under the MIT License. See `LICENSE` for more information.
