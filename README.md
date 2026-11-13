@@ -184,19 +184,6 @@ python src/ingest_pipeline.py --max-pages 50
 
 ---
 
-## Apresentacao Tecnica (Deck de Slides de 10 min)
-
-O repositorio inclui um deck de slides interativo em HTML5/CSS3/JS, estruturado especificamente para uma apresentacao tecnica de ate 10 minutos (incluindo cronometro integrado, notas do apresentador, visao geral em grade e controle por teclado):
-
-```bash
-# Abrir a apresentacao tecnica no navegador padrao:
-python open_presentation.py
-```
-> O arquivo tambem pode ser aberto diretamente via [`presentation/index.html`](presentation/index.html) ou clicando duas vezes em `presentation/open_presentation.bat`.  
-> O roteiro verbal com minutagem detalhada esta documentado em [`presentation/ROTEIRO_APRESENTACAO.md`](presentation/ROTEIRO_APRESENTACAO.md).
-
----
-
 ## Autor
 
 **Miguel Miranda Morandini**
