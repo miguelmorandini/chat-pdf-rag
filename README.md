@@ -1,121 +1,121 @@
-# Projetos de RAG com Google Gemini
+# RAG Projects with Google Gemini
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app)
 [![GitHub license](https://img.shields.io/github/license/miguelmorandini/chat-com-pdf)](LICENSE)
 
-Este repositorio reune duas abordagens complementares de aplicacao da arquitetura **RAG (Retrieval-Augmented Generation)** com o **Google Gemini**:
+This repository brings together complementary approaches for applying **RAG (Retrieval-Augmented Generation)** architecture with **Google Gemini**:
 
-1. **[Chat com PDF](chat_com_pdf.ipynb):** Implementacao leve e direta para responder perguntas sobre documentos em PDF utilizando PyPDF2 e TF-IDF (Desafio Inicial).
-2. **[Assistente Databricks](databricks_rag_assistant.ipynb):** Plataforma avancada de RAG multi-documentos utilizando a documentacao tecnica oficial de Databricks, com **ChromaDB** e **Google Embeddings (`gemini-embedding-001`)**.
-3. **[Databricks Technical Assistant (Web App)](streamlit_app.py):** Interface conversacional moderna completa com streaming, historico de chats persistente e design Lakehouse, hospedada gratuitamente em produção no Streamlit Cloud: **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**.
+1. **[Chat with PDF](chat_com_pdf.ipynb):** Lightweight and direct implementation for answering questions about PDF documents using PyPDF2 and TF-IDF (Initial Challenge).
+2. **[Databricks Assistant](databricks_rag_assistant.ipynb):** Advanced multi-document RAG platform using official Databricks technical documentation, powered by **ChromaDB** and **Google Embeddings (`gemini-embedding-001`)**.
+3. **[Databricks Technical Assistant (Web App)](streamlit_app.py):** Full modern conversational interface with streaming, persistent chat history, and Lakehouse design, hosted for free in production on Streamlit Cloud: **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**.
 
 ---
 
-## 🚀 Aplicacao Web em Producao (Deploy Online Gratuito)
+## 🚀 Live Web Application (Free Online Deployment)
 
-Acesse o assistente em tempo real diretamente no seu navegador, sem necessidade de instalar nada:
+Access the assistant in real time directly in your browser without installing anything:
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app)
 
-👉 **Link Direto:** **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**
+👉 **Direct Link:** **[https://chat-com-pdf.streamlit.app](https://chat-com-pdf.streamlit.app)**
 
-- **Streaming em Tempo Real:** Respostas digitadas progressivamente na tela com `st.write_stream`.
-- **Memoria Conversacional Multi-Turnos:** Mantem o contexto das perguntas anteriores para dialogos tecnicos fluidos.
-- **Historico Persistente na Barra Lateral:** Permite iniciar novas conversas (`+ Nova Conversa`) e navegar entre chats passados.
-- **Descoberta Dinamica de Modelos:** Roteamento automatico entre modelos ativos da Google (`client.models.list()`) com protecao resiliente de cotas.
+- **Real-Time Streaming:** Responses typed progressively on screen using `st.write_stream`.
+- **Multi-Turn Conversational Memory:** Retains context from previous questions for smooth technical dialogues.
+- **Persistent Sidebar History:** Start new conversations (`+ Nova Conversa`) and navigate across past chats.
+- **Dynamic Model Discovery:** Automatic routing across active Google models (`client.models.list()`) with resilient quota protection.
 
 ---
 
-## Notebooks e Aplicacoes Disponiveis
+## Available Notebooks and Applications
 
-| Projeto / Notebook | Foco | Recuperacao | Armazenamento | LLM | Acesso Online |
+| Project / Notebook | Focus | Retrieval | Storage | LLM | Online Access |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`databricks_rag_assistant.ipynb`** | Multi-Docs (Databricks Knowledge Base) | Embeddings Semanticos | ChromaDB Local | Google Gemini | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/miguelmorandini/chat-com-pdf/blob/main/databricks_rag_assistant.ipynb) [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app) |
-| **`chat_com_pdf.ipynb`** | PDF Unico (Delta Lake eBook) | TF-IDF + Cosseno | Em memoria | Google Gemini | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/miguelmorandini/chat-com-pdf/blob/main/chat_com_pdf.ipynb) |
-| **`streamlit_app.py`** | Web App Completa (Deploy Nuvem) | RAG Hibrido + Fallback | ChromaDB / Memoria | Descoberta Dinamica | [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app) |
+| **`databricks_rag_assistant.ipynb`** | Multi-Docs (Databricks Knowledge Base) | Semantic Embeddings | Local ChromaDB | Google Gemini | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/miguelmorandini/chat-com-pdf/blob/main/databricks_rag_assistant.ipynb) [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app) |
+| **`chat_com_pdf.ipynb`** | Single PDF (Delta Lake eBook) | TF-IDF + Cosine | In-memory | Google Gemini | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/miguelmorandini/chat-com-pdf/blob/main/chat_com_pdf.ipynb) |
+| **`streamlit_app.py`** | Full Web App (Cloud Deploy) | Hybrid RAG + Fallback | ChromaDB / Memory | Dynamic Discovery | [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chat-com-pdf.streamlit.app) |
 
 ---
 
-## 1. Chat com PDF (Desafio Inicial)
+## 1. Chat with PDF (Initial Challenge)
 
-- **Ambiente:** Executavel no Google Colab e em ambiente local.
-- **Extracao:** Mapeamento de texto por pagina com `PyPDF2`.
-- **Chunking:** Segmentacao em blocos com overlap para manter a continuidade do contexto.
-- **Recuperacao:** Busca por similaridade de cosseno via TF-IDF (`scikit-learn`).
-- **Prompt Anti-Alucinacao:** Regras explicitas para evitar invencoes e exigir citacao de paginas.
-- **Entregaveis:** 
-  - 3 perguntas tecnicas respondidas com citacao de pagina.
-  - 1 pergunta fora de escopo respondida com: *"Nao encontrei essa informacao no documento."*
+- **Environment:** Runnable on Google Colab and locally.
+- **Extraction:** Page-by-page text mapping with `PyPDF2`.
+- **Chunking:** Overlapping block segmentation to preserve context continuity.
+- **Retrieval:** Cosine similarity search via TF-IDF (`scikit-learn`).
+- **Anti-Hallucination Prompt:** Explicit rules to prevent fabrication and require page citations.
+- **Deliverables:**
+  - 3 technical questions answered with page citations.
+  - 1 out-of-scope question answered with: *"Nao encontrei essa informacao no documento."*
 
 ---
 
-## Arquitetura do Pipeline RAG
+## RAG Pipeline Architecture
 
 ```
                  +-----------------------------------------+
-                 |            Documento PDF                |
+                 |              PDF Document               |
                  +-----------------------------------------+
                                       |
                                       v
                  +-----------------------------------------+
-                 |    1. Extracao por Pagina (PyPDF2)      |
+                 |     1. Page Extraction (PyPDF2)         |
                  +-----------------------------------------+
                                       |
                                       v
                  +-----------------------------------------+
-                 |    2. Chunking com Overlap (800 / 150)  |
+                 |    2. Overlapping Chunking (800 / 150)  |
                  +-----------------------------------------+
                                       |
                                       v
                  +-----------------------------------------+
-                 |   3. Matriz TF-IDF e Indice Vetorial    |
+                 |   3. TF-IDF Matrix & Vector Index       |
                  +-----------------------------------------+
                                       |
- Pergunta do Usuario  --------------->+ (Similaridade de Cosseno)
-                                      |
-                                      v
-                 +-----------------------------------------+
-                 |     Top-k Trechos Relevantes + Paginas  |
-                 +-----------------------------------------+
+ User Question  --------------------->+ (Cosine Similarity)
                                       |
                                       v
                  +-----------------------------------------+
-                 | 4. Prompt Anti-Alucinacao + Contexto     |
+                 |     Top-k Relevant Chunks + Pages       |
                  +-----------------------------------------+
                                       |
                                       v
                  +-----------------------------------------+
-                 |    5. Google Gemini (API GenAI)         |
+                 | 4. Anti-Hallucination Prompt + Context  |
                  +-----------------------------------------+
                                       |
                                       v
                  +-----------------------------------------+
-                 | Resposta com Citacao da Pagina (Gradio) |
+                 |    5. Google Gemini (GenAI API)         |
+                 +-----------------------------------------+
+                                      |
+                                      v
+                 +-----------------------------------------+
+                 |  Answer with Page Citation (Gradio)     |
                  +-----------------------------------------+
 ```
 
 ---
 
-## Como Executar
+## How to Run
 
-### Opcao 1: Google Colab
-Abra o notebook diretamente na nuvem:
+### Option 1: Google Colab
+Open the notebook directly in the cloud:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/miguelmorandini/chat-com-pdf/blob/main/chat_com_pdf.ipynb)
 
-> Configure sua chave do Google AI Studio nos **Secrets** do Colab com o nome `GEMINI_API_KEY`.
+> Set your Google AI Studio key in Colab **Secrets** under the name `GEMINI_API_KEY`.
 
 ---
 
-### Opcao 2: Localmente
+### Option 2: Locally
 
-1. **Clone o repositorio:**
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/miguelmorandini/chat-com-pdf.git
    cd chat-com-pdf
    ```
 
-2. **Crie e ative o ambiente virtual:**
+2. **Create and activate the virtual environment:**
    ```bash
    python -m venv .venv
    # Windows:
@@ -124,67 +124,67 @@ Abra o notebook diretamente na nuvem:
    source .venv/bin/activate
    ```
 
-3. **Instale as dependencias:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Defina a variavel de ambiente:**
+4. **Set the environment variable:**
    ```bash
    # Windows (PowerShell):
-   $env:GEMINI_API_KEY="sua_chave_aqui"
+   $env:GEMINI_API_KEY="your_key_here"
 
    # Linux/Mac:
-   export GEMINI_API_KEY="sua_chave_aqui"
+   export GEMINI_API_KEY="your_key_here"
    ```
 
-5. **Execute:**
+5. **Run:**
    ```bash
-   # Opção A: Executar o app web moderno de Chat Databricks (Streamlit):
+   # Option A: Run the modern Databricks Chat web app (Streamlit):
    streamlit run streamlit_app.py
 
-   # Opção B: Executar o app Gradio original (Chat com PDF):
+   # Option B: Run the original Gradio app (Chat with PDF):
    python app.py
 
-   # Opção C: Abrir os notebooks interativos:
+   # Option C: Open the interactive notebooks:
    jupyter notebook databricks_rag_assistant.ipynb
    ```
 
 ---
 
-## 2. Assistente Databricks & Pipeline de Ingestao Contínua
+## 2. Databricks Assistant & Continuous Ingestion Pipeline
 
-O segundo projeto (`databricks_rag_assistant.ipynb`) conta com um **pipeline de ingestao incremental automatizado** (`src/ingest_pipeline.py`) que mantem a base de conhecimento sempre sincronizada com o site oficial da Databricks:
+The second project (`databricks_rag_assistant.ipynb`) features an **automated incremental ingestion pipeline** (`src/ingest_pipeline.py`) that keeps the knowledge base synchronized with the official Databricks documentation site:
 
-- **Fonte Oficial:** Leitura automatica do sitemap oficial (`https://docs.databricks.com/sitemap.xml`), cobrindo Lakehouse, Delta Lake, Unity Catalog, Delta Live Tables, Ingestao, Otimizacoes, PySpark e SQL.
-- **Detecção de Mudanças (SHA-256):** Compara o hash do texto de cada pagina com `data/ingestion_state.json`. Paginas inalteradas sao ignoradas (0 tokens consumidos).
-- **Batch Embeddings:** Envia chunks em lotes com `gemini-embedding-001`, reduzindo chamadas a API em ate 90%.
-- **Fallback Inteligente com Grounding Oficial (Zero Custo):** Quando o usuario pergunta sobre topicos que ainda nao estao na base local (ChromaDB), o assistente aciona automaticamente o Google Search Grounding restrito a `docs.databricks.com`, garantindo respostas precisas e links oficiais em tempo real sem custo no plano gratuito.
-- **Automacao Semanal no GitHub Actions:** O workflow `.github/workflows/sync_databricks_docs.yml` roda autonomamente todo domingo as 03:00 UTC, atualizando o banco vetorial e salvando as alteracoes no repositorio.
+- **Official Source:** Automatic reading of the official sitemap (`https://docs.databricks.com/sitemap.xml`), covering Lakehouse, Delta Lake, Unity Catalog, Delta Live Tables, Ingestion, Optimizations, PySpark, and SQL.
+- **Change Detection (SHA-256):** Compares each page's text hash against `data/ingestion_state.json`. Unchanged pages are skipped (0 tokens consumed).
+- **Batch Embeddings:** Sends chunks in batches with `gemini-embedding-001`, reducing API calls by up to 90%.
+- **Smart Fallback with Official Grounding (Zero Cost):** When the user asks about topics not yet in the local knowledge base (ChromaDB), the assistant automatically triggers Google Search Grounding restricted to `docs.databricks.com`, ensuring accurate answers and official links in real time at no cost on the free tier.
+- **Weekly GitHub Actions Automation:** The `.github/workflows/sync_databricks_docs.yml` workflow runs autonomously every Sunday at 03:00 UTC, updating the vector database and committing changes to the repository.
 
-### Como executar o pipeline de ingestao manualmente:
+### How to run the ingestion pipeline manually:
 ```bash
-# Simular a varredura sem gastar tokens (dry-run):
+# Dry-run scan without spending tokens:
 python src/ingest_pipeline.py --dry-run --max-pages 20
 
-# Executar a ingestao real de 50 paginas:
+# Run actual ingestion of 50 pages:
 python src/ingest_pipeline.py --max-pages 50
 ```
 
 ---
 
-## Validacao do Desafio
+## Challenge Validation
 
-| Tipo de Teste | Pergunta | Comportamento Esperado |
+| Test Type | Question | Expected Behavior |
 | :--- | :--- | :--- |
-| **Pergunta Tecnica 1** | *What is Delta Lake and how does it bring reliability?* | Resposta precisa citando as paginas (ex: Pag. 3 e 8) |
-| **Pergunta Tecnica 2** | *What is a Lakehouse and what problems does it solve?* | Resumo conceitual citando as Pag. 5, 6 e 13 |
-| **Pergunta Tecnica 3** | *How does Delta Lake handle ACID transactions?* | Explicacao do log de transacoes citando a Pag. 8 e 13 |
-| **Teste Anti-Alucinacao** | *Qual e a escalacao da selecao brasileira em 2002?* | `"Nao encontrei essa informacao no documento."` |
+| **Technical Question 1** | *What is Delta Lake and how does it bring reliability?* | Accurate answer citing pages (e.g., pp. 3 and 8) |
+| **Technical Question 2** | *What is a Lakehouse and what problems does it solve?* | Conceptual summary citing pp. 5, 6, and 13 |
+| **Technical Question 3** | *How does Delta Lake handle ACID transactions?* | Explanation of the transaction log citing pp. 8 and 13 |
+| **Anti-Hallucination Test** | *Qual e a escalacao da selecao brasileira em 2002?* | `"Nao encontrei essa informacao no documento."` |
 
 ---
 
-## Autor
+## Author
 
 **Miguel Miranda Morandini**
 - GitHub: [@miguelmorandini](https://github.com/miguelmorandini)
@@ -192,5 +192,5 @@ python src/ingest_pipeline.py --max-pages 50
 
 ---
 
-## Licenca
-Distribuido sob a licenca MIT. Consulte `LICENSE` para mais informacoes.
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
